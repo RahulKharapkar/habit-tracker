@@ -18,7 +18,6 @@ interface HabitItemProps {
 
 export default function HabitItem({ habit, onToggleDate, onEditHabit, onDeleteHabit }: HabitItemProps) {
   const [currentDate] = useState(new Date())
-  const [isEditing, setIsEditing] = useState(false)
   const [editedHabit, setEditedHabit] = useState(habit)
 
   const getDaysInMonth = (date: Date) => {
@@ -71,7 +70,6 @@ export default function HabitItem({ habit, onToggleDate, onEditHabit, onDeleteHa
 
   const handleEdit = () => {
     onEditHabit(editedHabit)
-    setIsEditing(false)
   }
 
   const handleDelete = () => {
@@ -171,4 +169,3 @@ export default function HabitItem({ habit, onToggleDate, onEditHabit, onDeleteHa
     </Card>
   )
 }
-
