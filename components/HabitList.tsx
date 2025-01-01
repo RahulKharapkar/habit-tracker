@@ -11,12 +11,12 @@ interface HabitListProps {
 
 export default function HabitList({ habits, onToggleDate, onEditHabit, onDeleteHabit }: HabitListProps) {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="w-full">
+      <CardHeader className="border-b">
         <CardTitle className="text-2xl font-bold text-center">Your Habits</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <CardContent className="p-6">
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 max-w-[1600px] mx-auto">
           {habits.map((habit) => (
             <HabitItem 
               key={habit.id} 
@@ -31,4 +31,3 @@ export default function HabitList({ habits, onToggleDate, onEditHabit, onDeleteH
     </Card>
   )
 }
-

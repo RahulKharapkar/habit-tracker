@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import HabitTracker from '../components/HabitTracker'
 import Auth from '../components/Auth'
+import { Session } from '@supabase/supabase-js'
+
 
 export default function Home() {
-  const [session, setSession] = useState<any>(null)
+  const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

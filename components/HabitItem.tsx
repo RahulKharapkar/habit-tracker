@@ -88,81 +88,83 @@ export default function HabitItem({ habit, onToggleDate, onEditHabit, onDeleteHa
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
-          <span>{habit.name}</span>
-          <div className="flex items-center space-x-2">
-            <Badge variant="secondary">{habit.category}</Badge>
-            <Badge className={getDifficultyColor()}>{habit.difficulty}</Badge>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Pencil className="h-4 w-4" />
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Edit Habit</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <Input
-                    value={editedHabit.name}
-                    onChange={(e) => setEditedHabit({ ...editedHabit, name: e.target.value })}
-                    placeholder="Habit name"
-                  />
-                  <Select
-                    value={editedHabit.category}
-                    onValueChange={(value: HabitCategory) => setEditedHabit({ ...editedHabit, category: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Health">Health</SelectItem>
-                      <SelectItem value="Productivity">Productivity</SelectItem>
-                      <SelectItem value="Personal">Personal</SelectItem>
-                      <SelectItem value="Fitness">Fitness</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select
-                    value={editedHabit.difficulty}
-                    onValueChange={(value: HabitDifficulty) => setEditedHabit({ ...editedHabit, difficulty: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select difficulty" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Easy">Easy</SelectItem>
-                      <SelectItem value="Medium">Medium</SelectItem>
-                      <SelectItem value="Hard">Hard</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button onClick={handleEdit}>Save Changes</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-            <Button variant="ghost" size="icon" onClick={handleDelete}>
-              <Trash2 className="h-4 w-4" />
-            </Button>
+    <Card className="h-full flex flex-col">
+      <CardHeader className="space-y-4 pb-4">
+        <div className="flex flex-col space-y-2">
+          <CardTitle className="text-xl font-semibold line-clamp-1">{habit.name}</CardTitle>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="secondary" className="text-sm">{habit.category}</Badge>
+            <Badge className={`text-sm ${getDifficultyColor()}`}>{habit.difficulty}</Badge>
           </div>
-        </CardTitle>
+        </div>
+        <div className="flex justify-end space-x-1">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Pencil className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Edit Habit</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 pt-4">
+                <Input
+                  value={editedHabit.name}
+                  onChange={(e) => setEditedHabit({ ...editedHabit, name: e.target.value })}
+                  placeholder="Habit name"
+                />
+                <Select
+                  value={editedHabit.category}
+                  onValueChange={(value: HabitCategory) => setEditedHabit({ ...editedHabit, category: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Health">Health</SelectItem>
+                    <SelectItem value="Productivity">Productivity</SelectItem>
+                    <SelectItem value="Personal">Personal</SelectItem>
+                    <SelectItem value="Fitness">Fitness</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select
+                  value={editedHabit.difficulty}
+                  onValueChange={(value: HabitDifficulty) => setEditedHabit({ ...editedHabit, difficulty: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select difficulty" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Easy">Easy</SelectItem>
+                    <SelectItem value="Medium">Medium</SelectItem>
+                    <SelectItem value="Hard">Hard</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button onClick={handleEdit} className="w-full">Save Changes</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+          <Button variant="ghost" size="icon" onClick={handleDelete} className="h-8 w-8">
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-0 flex-grow">
         <div className="flex justify-between items-center mb-4">
           <span className="text-sm font-semibold">Streak: {getStreak()} days</span>
         </div>
-        <Tabs defaultValue="week">
-          <TabsList className="grid w-full grid-cols-2">
+        <Tabs defaultValue="week" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-4">
             <TabsTrigger value="week">Week</TabsTrigger>
             <TabsTrigger value="month">Month</TabsTrigger>
           </TabsList>
-          <TabsContent value="week" className="mt-4">
-            <div className="grid grid-cols-7 gap-2">{renderDayButtons(7)}</div>
+          <TabsContent value="week">
+            <div className="grid grid-cols-7 gap-1.5">{renderDayButtons(7)}</div>
           </TabsContent>
-          <TabsContent value="month" className="mt-4">
-            <div className="grid grid-cols-7 gap-2">{renderDayButtons(getDaysInMonth(currentDate))}</div>
+          <TabsContent value="month">
+            <div className="grid grid-cols-7 gap-1.5">{renderDayButtons(getDaysInMonth(currentDate))}</div>
           </TabsContent>
         </Tabs>
       </CardContent>
