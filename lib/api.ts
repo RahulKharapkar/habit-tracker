@@ -8,8 +8,8 @@ export async function getHabits(userId: string): Promise<Habit[]> {
     .eq('user_id', userId)
 
   if (error) {
-    console.error('Error fetching habits:', error)
-    throw new Error(`Failed to fetch habits: ${error.message}`)
+    console.error('Error fetching habits :', error)
+    throw new Error(`Failed to fetch habits : ${error.message}`)
   }
 
   return data || []
